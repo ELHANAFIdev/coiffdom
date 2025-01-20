@@ -7,6 +7,7 @@ const ClientDashboard = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Fonction pour récupérer les services
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -16,6 +17,7 @@ const ClientDashboard = () => {
           return;
         }
 
+        // Appel à l'API pour récupérer les services
         const response = await axios.get("http://localhost:5000/api/services", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -28,39 +30,44 @@ const ClientDashboard = () => {
     fetchServices();
   }, [navigate]);
 
+  // Fonction pour se déconnecter
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     navigate("/login");
   };
 
+  // Fonction pour réserver un service
   const handleBooking = (serviceId) => {
     navigate(`/booking/${serviceId}`);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-200 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Header du tableau de bord */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-extrabold text-gray-800">
+          <h1 className="text-3xl font-extrabold text-gray-900">
             Bienvenue dans votre tableau de bord
           </h1>
           <button
             onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow-md transition"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow-md transition"
           >
             Se déconnecter
           </button>
         </div>
 
+        {/* Message d'erreur si applicable */}
         {error && (
-          <p className="text-red-500 mb-4 text-center font-semibold">
+          <p className="text-red-600 mb-4 text-center font-semibold">
             {error}
           </p>
         )}
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4 text-gray-700 text-center">
+        {/* Liste des services */}
+        <div className="bg-white p-6 rounded-lg shadow-md border border-green-200">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">
             Services Disponibles
           </h2>
           {services.length > 0 ? (
@@ -68,14 +75,16 @@ const ClientDashboard = () => {
               {services.map((service) => (
                 <div
                   key={service._id}
-                  className="border rounded-lg shadow-sm hover:shadow-md transition"
+                  className="border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition bg-gray-50"
                 >
+                  {/* Image du service */}
                   <img
                     src={`http://localhost:5000/${service.photo}`}
                     alt={service.name}
                     className="w-full h-40 object-cover rounded-t-lg"
                   />
                   <div className="p-4">
+                    {/* Détails du service */}
                     <div className="flex justify-between">
                       <p className="text-sm text-gray-500">
                         <strong>Date :</strong>{" "}
@@ -85,16 +94,17 @@ const ClientDashboard = () => {
                         <strong>Utilisateur :</strong> {service?.userId?.name}
                       </p>
                     </div>
-                    <p className="text-lg font-semibold text-gray-800 mt-2">
+                    <p className="text-lg font-semibold text-gray-900 mt-2">
                       {service.name}
                     </p>
-                    <p className="text-gray-600">{service.description}</p>
-                    <p className="text-gray-800 font-bold">
+                    <p className="text-gray-700">{service.description}</p>
+                    <p className="text-green-600 font-bold">
                       Prix : {service.price} MAD
                     </p>
+                    {/* Bouton de réservation */}
                     <button
                       onClick={() => handleBooking(service._id)}
-                      className="mt-4 bg-blue-500 text-white px-6 py-2 rounded shadow-md hover:bg-blue-600 transition"
+                      className="mt-4 bg-green-500 text-white px-6 py-2 rounded shadow-md hover:bg-green-600 transition"
                     >
                       Réserver Maintenant
                     </button>

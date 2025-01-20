@@ -28,7 +28,7 @@ const Register = () => {
       if (response.data.role === "client") {
         navigate("/client-dashboard");
       } else {
-        navigate("/");
+        navigate("/"); // Autre redirection pour d'autres rôles
       }
     } catch (err) {
       setError("Échec de l'inscription : " + err.response?.data?.error || err.message);
@@ -36,9 +36,9 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-200 via-purple-300 to-pink-500">
-      <form onSubmit={handleSubmit} className="p-8 bg-white rounded-lg shadow-xl max-w-md w-full">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Créer un compte</h2>
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-pink-100 via-pink-200 to-red-200">
+      <form onSubmit={handleSubmit} className="p-8 bg-white rounded-lg shadow-2xl max-w-md w-full">
+        <h2 className="text-3xl font-extrabold text-center text-pink-800 mb-6">Créer un compte</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <div className="mb-4">
           <input
@@ -46,7 +46,7 @@ const Register = () => {
             placeholder="Nom"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border-2 border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
         </div>
@@ -56,7 +56,7 @@ const Register = () => {
             placeholder="Adresse e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border-2 border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
         </div>
@@ -66,7 +66,7 @@ const Register = () => {
             placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border-2 border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
         </div>
@@ -74,7 +74,7 @@ const Register = () => {
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border-2 border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
             <option value="client">Client</option>
             <option value="coiffeur">Coiffeur</option>
@@ -82,13 +82,13 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+          className="w-full p-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition duration-200"
         >
           S'inscrire
         </button>
         <p className="mt-4 text-center text-gray-600">
           Vous avez déjà un compte ?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-pink-600 hover:underline">
             Connectez-vous ici
           </Link>
         </p>
